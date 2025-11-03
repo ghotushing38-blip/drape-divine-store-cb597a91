@@ -1,42 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Premium Indian Saree E-Commerce Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Indian Cultural Color Palette - HSL only */
+    --background: 40 40% 96%; /* Cream background */
+    --foreground: 345 70% 20%; /* Deep maroon text */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 345 70% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 345 70% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Maroon Primary */
+    --primary: 345 70% 32%; /* Rich Maroon #8B1538 */
+    --primary-foreground: 40 40% 96%;
+    --primary-glow: 345 70% 45%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Gold Accent */
+    --secondary: 45 75% 52%; /* Royal Gold #D4AF37 */
+    --secondary-foreground: 345 70% 20%;
+    --secondary-glow: 45 85% 65%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Deep Green */
+    --accent: 155 40% 25%;
+    --accent-foreground: 40 40% 96%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Royal Blue */
+    --royal: 220 70% 40%;
+    --royal-foreground: 0 0% 100%;
+
+    --muted: 40 30% 90%;
+    --muted-foreground: 345 20% 45%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 40 25% 85%;
+    --input: 40 25% 88%;
+    --ring: 345 70% 32%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(345 70% 32%), hsl(345 70% 45%));
+    --gradient-gold: linear-gradient(135deg, hsl(45 75% 52%), hsl(45 85% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(345 70% 32% / 0.95), hsl(220 70% 40% / 0.9));
+    --gradient-overlay: linear-gradient(180deg, transparent, hsl(345 70% 20% / 0.8));
+    
+    /* Shadows with cultural elegance */
+    --shadow-elegant: 0 10px 30px -10px hsl(345 70% 32% / 0.3);
+    --shadow-gold: 0 8px 25px -8px hsl(45 75% 52% / 0.4);
+    --shadow-soft: 0 4px 20px -4px hsl(345 20% 45% / 0.15);
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,41 +81,33 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 345 30% 12%;
+    --foreground: 40 40% 96%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 345 25% 15%;
+    --card-foreground: 40 40% 96%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 345 25% 15%;
+    --popover-foreground: 40 40% 96%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 345 70% 45%;
+    --primary-foreground: 40 40% 96%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 45 75% 52%;
+    --secondary-foreground: 345 70% 20%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 345 20% 20%;
+    --muted-foreground: 40 20% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 155 40% 30%;
+    --accent-foreground: 40 40% 96%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 40 40% 96%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 345 20% 25%;
+    --input: 345 20% 25%;
+    --ring: 345 70% 45%;
   }
 }
 
@@ -100,6 +117,132 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    @apply font-semibold;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+}
+
+@layer components {
+  /* Ethnic Pattern Background */
+  .pattern-bg {
+    background-image: 
+      radial-gradient(circle at 20% 50%, hsl(45 75% 52% / 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, hsl(345 70% 32% / 0.05) 0%, transparent 50%);
+  }
+
+  .pattern-mandala {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* Animated Elements */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.7s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.4)];
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, transparent, hsl(45 75% 52% / 0.3), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  /* Premium Button Styles */
+  .btn-hero {
+    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg shadow-elegant hover:shadow-gold transition-all duration-300 hover:scale-105;
+  }
+
+  .btn-gold {
+    @apply bg-gradient-to-r from-secondary to-secondary-glow text-secondary-foreground px-6 py-3 rounded-lg font-semibold shadow-gold hover:shadow-elegant transition-all duration-300 hover:scale-105;
+  }
+
+  /* Product Card Styles */
+  .product-card {
+    @apply bg-card rounded-xl overflow-hidden shadow-soft hover-lift hover-glow transition-all duration-300 cursor-pointer;
+  }
+
+  .product-image-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300;
+  }
+
+  /* Ethnic Decorative Elements */
+  .border-ethnic {
+    @apply border-2 border-secondary/30 rounded-lg;
+  }
+
+  .divider-ethnic {
+    @apply h-1 w-24 bg-gradient-to-r from-transparent via-secondary to-transparent mx-auto my-8;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
