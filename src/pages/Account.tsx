@@ -32,22 +32,21 @@ const Account = () => {
     navigate("/");
   };
 
-  const orders = [
-    {
-      id: "SAR1234",
-      date: "Jan 15, 2025",
-      total: 8999,
-      status: "Delivered",
-      items: "Royal Maroon Silk Saree",
-    },
-    {
-      id: "SAR1235",
-      date: "Jan 10, 2025",
-      total: 12999,
-      status: "In Transit",
-      items: "Designer Blue Gold Saree",
-    },
-  ];
+  // Get orders from localStorage
+  const getOrders = () => {
+    const storedOrders = localStorage.getItem("orders");
+    return storedOrders ? JSON.parse(storedOrders) : [];
+  };
+
+  const [orders, setOrders] = useState(getOrders());
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setOrders(getOrders());
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   if (!user) return null;
 
@@ -136,46 +135,111 @@ const Account = () => {
 
           {/* Orders Tab */}
           <TabsContent value="orders" className="animate-fade-in">
-            <div className="space-y-4">
-              {orders.map((order) => (
-                <div
-                  key={order.id}
-                  className="bg-card p-6 rounded-xl border border-border shadow-soft hover-lift"
-                >
-                  <div className="flex items-center justify-between flex-wrap gap-4">
-                    <div>
-                      <h3 className="text-xl font-semibold mb-1">Order #{order.id}</h3>
-                      <p className="text-muted-foreground">{order.items}</p>
-                      <p className="text-sm text-muted-foreground mt-2">{order.date}</p>
+            {orders.length === 0 ? (
+              <div className="text-center py-20">
+                <Package className="h-24 w-24 mx-auto mb-6 text-muted-foreground" />
+                <h2 className="text-3xl font-serif font-bold mb-4">No Orders Yet</h2>
+                <p className="text-muted-foreground mb-8">
+                  Start shopping to see your orders here
+                </p>
+                <Button className="btn-hero" onClick={() => navigate("/shop")}>
+                  Browse Collection
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {orders.map((order) => (
+                  <div
+                    key={order.id}
+                    className="bg-card p-6 rounded-xl border border-border shadow-soft hover-lift"
+                  >
+                    <div className="flex items-center justify-between flex-wrap gap-4 mb-4">
+                      <div>
+                        <h3 className="text-xl font-semibold mb-1">Order #{order.id}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Placed on {order.orderDate}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold text-primary mb-2">
+                          ₹{order.total.toLocaleString()}
+                        </p>
+                        <span
+                          className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
+                            order.status === "Delivered"
+                              ? "bg-secondary/20 text-secondary"
+                              : order.status === "In Transit"
+                              ? "bg-primary/20 text-primary"
+                              : "bg-accent/20 text-accent"
+                          }`}
+                        >
+                          {order.status}
+                        </span>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold text-primary mb-2">
-                        ₹{order.total.toLocaleString()}
-                      </p>
-                      <span
-                        className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                          order.status === "Delivered"
-                            ? "bg-secondary/20 text-secondary"
-                            : "bg-primary/20 text-primary"
-                        }`}
-                      >
-                        {order.status}
-                      </span>
+
+                    {/* Order Items */}
+                    <div className="space-y-3 mb-4 pb-4 border-b border-border">
+                      {order.items.map((item: any, idx: number) => (
+                        <div key={idx} className="flex items-center gap-4">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-16 h-16 object-cover rounded-lg"
+                          />
+                          <div className="flex-1">
+                            <p className="font-semibold">{item.name}</p>
+                            <p className="text-sm text-muted-foreground">
+                              Quantity: {item.quantity}
+                            </p>
+                          </div>
+                          <p className="font-semibold text-primary">
+                            ₹{item.price.toLocaleString()}
+                          </p>
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-border flex gap-3">
-                    <Button variant="outline" size="sm">
-                      Track Order
-                    </Button>
-                    {order.status === "Delivered" && (
+
+                    {/* Delivery Info */}
+                    <div className="bg-background/50 p-4 rounded-lg mb-4">
+                      <h4 className="font-semibold mb-2">Delivery Information</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                        <div>
+                          <p className="text-muted-foreground">Expected Delivery</p>
+                          <p className="font-semibold text-primary">{order.deliveryDate}</p>
+                        </div>
+                        <div>
+                          <p className="text-muted-foreground">Shipping Address</p>
+                          <p className="font-semibold">{order.shippingAddress}</p>
+                        </div>
+                        <div>
+                          <p className="text-muted-foreground">Payment Method</p>
+                          <p className="font-semibold">{order.paymentMethod}</p>
+                        </div>
+                        <div>
+                          <p className="text-muted-foreground">Tracking Number</p>
+                          <p className="font-semibold">{order.trackingNumber}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-3">
                       <Button variant="outline" size="sm">
-                        Write Review
+                        Track Order
                       </Button>
-                    )}
+                      {order.status === "Delivered" && (
+                        <Button variant="outline" size="sm">
+                          Write Review
+                        </Button>
+                      )}
+                      <Button variant="outline" size="sm">
+                        Download Invoice
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </TabsContent>
 
           {/* Wishlist Tab */}

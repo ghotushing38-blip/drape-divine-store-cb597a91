@@ -17,14 +17,24 @@ const Shop = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFabric, setSelectedFabric] = useState("all");
   const [selectedPrice, setSelectedPrice] = useState("all");
+  const [selectedOccasion, setSelectedOccasion] = useState("all");
 
   const products = [
-    { id: 1, name: "Royal Maroon Silk Saree", price: 8999, fabric: "silk", image: sareesilk },
-    { id: 2, name: "Elegant Cotton Saree", price: 2499, fabric: "cotton", image: sareecotton },
-    { id: 3, name: "Designer Blue Gold Saree", price: 12999, fabric: "designer", image: sareedesigner },
-    { id: 4, name: "Banarasi Green Saree", price: 15999, fabric: "banarasi", image: sareebanarasi },
-    { id: 5, name: "Premium Silk Saree", price: 9999, fabric: "silk", image: sareesilk },
-    { id: 6, name: "Handloom Cotton Saree", price: 1999, fabric: "cotton", image: sareecotton },
+    { id: 1, name: "Royal Maroon Silk Saree", price: 8999, fabric: "silk", occasion: "wedding", image: sareesilk },
+    { id: 2, name: "Elegant Cotton Saree", price: 2499, fabric: "cotton", occasion: "casual", image: sareecotton },
+    { id: 3, name: "Designer Blue Gold Saree", price: 12999, fabric: "designer", occasion: "party", image: sareedesigner },
+    { id: 4, name: "Banarasi Green Saree", price: 15999, fabric: "banarasi", occasion: "wedding", image: sareebanarasi },
+    { id: 5, name: "Premium Silk Saree", price: 9999, fabric: "silk", occasion: "festive", image: sareesilk },
+    { id: 6, name: "Handloom Cotton Saree", price: 1999, fabric: "cotton", occasion: "casual", image: sareecotton },
+    { id: 7, name: "Kanjivaram Silk Saree", price: 18999, fabric: "silk", occasion: "wedding", image: sareesilk },
+    { id: 8, name: "Chanderi Cotton Saree", price: 3499, fabric: "cotton", occasion: "office", image: sareecotton },
+    { id: 9, name: "Georgette Designer Saree", price: 6999, fabric: "designer", occasion: "party", image: sareedesigner },
+    { id: 10, name: "Pure Banarasi Silk", price: 22999, fabric: "banarasi", occasion: "bridal", image: sareebanarasi },
+    { id: 11, name: "Tussar Silk Saree", price: 7499, fabric: "silk", occasion: "festive", image: sareesilk },
+    { id: 12, name: "Linen Cotton Saree", price: 2999, fabric: "cotton", occasion: "casual", image: sareecotton },
+    { id: 13, name: "Embroidered Designer Saree", price: 14999, fabric: "designer", occasion: "wedding", image: sareedesigner },
+    { id: 14, name: "Brocade Banarasi Saree", price: 19999, fabric: "banarasi", occasion: "bridal", image: sareebanarasi },
+    { id: 15, name: "Patola Silk Saree", price: 11999, fabric: "silk", occasion: "festive", image: sareesilk },
   ];
 
   const handleAddToCart = (productName: string) => {
@@ -54,12 +64,14 @@ const Shop = () => {
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesFabric = selectedFabric === "all" || product.fabric === selectedFabric;
+    const matchesOccasion = selectedOccasion === "all" || product.occasion === selectedOccasion;
     const matchesPrice =
       selectedPrice === "all" ||
       (selectedPrice === "under5k" && product.price < 5000) ||
       (selectedPrice === "5k-10k" && product.price >= 5000 && product.price <= 10000) ||
-      (selectedPrice === "above10k" && product.price > 10000);
-    return matchesSearch && matchesFabric && matchesPrice;
+      (selectedPrice === "10k-15k" && product.price >= 10000 && product.price <= 15000) ||
+      (selectedPrice === "above15k" && product.price > 15000);
+    return matchesSearch && matchesFabric && matchesPrice && matchesOccasion;
   });
 
   return (
@@ -91,26 +103,41 @@ const Shop = () => {
             />
           </div>
           <Select value={selectedFabric} onValueChange={setSelectedFabric}>
-            <SelectTrigger className="w-full md:w-[180px]">
-              <SelectValue placeholder="Fabric" />
+            <SelectTrigger className="w-full md:w-[200px]">
+              <SelectValue placeholder="Fabric Type" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Fabrics</SelectItem>
-              <SelectItem value="silk">Silk</SelectItem>
-              <SelectItem value="cotton">Cotton</SelectItem>
-              <SelectItem value="designer">Designer</SelectItem>
-              <SelectItem value="banarasi">Banarasi</SelectItem>
+              <SelectItem value="silk">Silk (Kanjivaram, Tussar, Patola)</SelectItem>
+              <SelectItem value="cotton">Cotton (Handloom, Chanderi, Linen)</SelectItem>
+              <SelectItem value="designer">Designer (Georgette, Embroidered)</SelectItem>
+              <SelectItem value="banarasi">Banarasi (Pure Silk, Brocade)</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={selectedOccasion} onValueChange={setSelectedOccasion}>
+            <SelectTrigger className="w-full md:w-[200px]">
+              <SelectValue placeholder="Occasion" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Occasions</SelectItem>
+              <SelectItem value="bridal">Bridal & Wedding</SelectItem>
+              <SelectItem value="wedding">Wedding Guest</SelectItem>
+              <SelectItem value="party">Party & Events</SelectItem>
+              <SelectItem value="festive">Festive & Celebration</SelectItem>
+              <SelectItem value="office">Office & Formal</SelectItem>
+              <SelectItem value="casual">Casual & Daily Wear</SelectItem>
             </SelectContent>
           </Select>
           <Select value={selectedPrice} onValueChange={setSelectedPrice}>
-            <SelectTrigger className="w-full md:w-[180px]">
+            <SelectTrigger className="w-full md:w-[200px]">
               <SelectValue placeholder="Price Range" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Prices</SelectItem>
               <SelectItem value="under5k">Under ₹5,000</SelectItem>
               <SelectItem value="5k-10k">₹5,000 - ₹10,000</SelectItem>
-              <SelectItem value="above10k">Above ₹10,000</SelectItem>
+              <SelectItem value="10k-15k">₹10,000 - ₹15,000</SelectItem>
+              <SelectItem value="above15k">Above ₹15,000</SelectItem>
             </SelectContent>
           </Select>
         </div>

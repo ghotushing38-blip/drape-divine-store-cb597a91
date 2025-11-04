@@ -128,11 +128,31 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Festival Offer Banner */}
-      <section className="bg-gradient-to-r from-primary via-royal to-accent text-primary-foreground py-4 text-center">
-        <p className="text-lg md:text-xl font-semibold animate-pulse">
-          ✨ Festive Sale: Up to 50% Off on Select Sarees | Free Shipping Above ₹2999
-        </p>
+      {/* Features Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center p-6 animate-fade-in hover-lift">
+            <div className="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Sparkles className="h-8 w-8 text-secondary" />
+            </div>
+            <h3 className="text-xl font-serif font-bold mb-2">Premium Quality</h3>
+            <p className="text-muted-foreground">Handpicked fabrics and craftsmanship</p>
+          </div>
+          <div className="text-center p-6 animate-fade-in hover-lift" style={{ animationDelay: "100ms" }}>
+            <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Star className="h-8 w-8 text-primary" />
+            </div>
+            <h3 className="text-xl font-serif font-bold mb-2">Authentic Designs</h3>
+            <p className="text-muted-foreground">Traditional patterns with modern touch</p>
+          </div>
+          <div className="text-center p-6 animate-fade-in hover-lift" style={{ animationDelay: "200ms" }}>
+            <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <ArrowRight className="h-8 w-8 text-accent" />
+            </div>
+            <h3 className="text-xl font-serif font-bold mb-2">Fast Delivery</h3>
+            <p className="text-muted-foreground">Quick shipping across India</p>
+          </div>
+        </div>
       </section>
 
       {/* Categories Section */}
@@ -204,6 +224,34 @@ const Index = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="container mx-auto px-4 py-20">
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">
+            Why Choose <span className="text-primary">SareeVastra</span>
+          </h2>
+          <div className="divider-ethnic"></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="bg-card p-8 rounded-xl border-ethnic shadow-soft hover-lift animate-slide-up">
+            <h3 className="text-2xl font-serif font-bold mb-3 text-primary">Handloom Support</h3>
+            <p className="text-muted-foreground">We work directly with artisans and weavers across India, ensuring fair trade and supporting traditional craftsmanship.</p>
+          </div>
+          <div className="bg-card p-8 rounded-xl border-ethnic shadow-soft hover-lift animate-slide-up" style={{ animationDelay: "100ms" }}>
+            <h3 className="text-2xl font-serif font-bold mb-3 text-primary">Quality Assurance</h3>
+            <p className="text-muted-foreground">Each saree is carefully inspected for quality, authenticity, and craftsmanship before it reaches you.</p>
+          </div>
+          <div className="bg-card p-8 rounded-xl border-ethnic shadow-soft hover-lift animate-slide-up" style={{ animationDelay: "200ms" }}>
+            <h3 className="text-2xl font-serif font-bold mb-3 text-primary">Easy Returns</h3>
+            <p className="text-muted-foreground">Not satisfied? We offer hassle-free returns within 7 days of delivery, no questions asked.</p>
+          </div>
+          <div className="bg-card p-8 rounded-xl border-ethnic shadow-soft hover-lift animate-slide-up" style={{ animationDelay: "300ms" }}>
+            <h3 className="text-2xl font-serif font-bold mb-3 text-primary">Secure Payments</h3>
+            <p className="text-muted-foreground">Shop with confidence using our secure payment gateway supporting UPI, cards, and COD options.</p>
           </div>
         </div>
       </section>

@@ -13,6 +13,16 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    pincode: "",
+  });
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,6 +31,46 @@ const Checkout = () => {
     setTimeout(() => {
       setIsProcessing(false);
       setOrderPlaced(true);
+      
+      // Generate order details
+      const orderDate = new Date().toLocaleDateString("en-IN", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+      
+      const deliveryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString("en-IN", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+
+      const orderId = `SAR${Math.floor(1000 + Math.random() * 9000)}`;
+      const trackingNumber = `TRK${Math.floor(100000 + Math.random() * 900000)}`;
+
+      // Mock cart items (in real app, get from cart state)
+      const orderItems = [
+        { name: "Royal Maroon Silk Saree", price: 8999, quantity: 1, image: "/assets/saree-silk-1.jpg" },
+        { name: "Designer Blue Gold Saree", price: 12999, quantity: 1, image: "/assets/saree-designer-1.jpg" },
+      ];
+
+      const order = {
+        id: orderId,
+        orderDate: orderDate,
+        deliveryDate: deliveryDate,
+        total: 21998,
+        status: "Processing",
+        items: orderItems,
+        shippingAddress: `${formData.address}, ${formData.city}, ${formData.state}, ${formData.pincode}`,
+        paymentMethod: paymentMethod === "cod" ? "Cash on Delivery" : paymentMethod === "upi" ? "UPI" : "Card",
+        trackingNumber: trackingNumber,
+      };
+
+      // Save to localStorage
+      const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+      existingOrders.unshift(order);
+      localStorage.setItem("orders", JSON.stringify(existingOrders));
+      
       localStorage.setItem("cartCount", "0");
       window.dispatchEvent(new Event("storage"));
     }, 2000);
@@ -77,38 +127,80 @@ const Checkout = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="firstName">First Name</Label>
-                      <Input id="firstName" required />
+                      <Input 
+                        id="firstName" 
+                        value={formData.firstName}
+                        onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                        required 
+                      />
                     </div>
                     <div>
                       <Label htmlFor="lastName">Last Name</Label>
-                      <Input id="lastName" required />
+                      <Input 
+                        id="lastName" 
+                        value={formData.lastName}
+                        onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                        required 
+                      />
                     </div>
                   </div>
                   <div>
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" required />
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      required 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" required />
+                    <Input 
+                      id="phone" 
+                      type="tel" 
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      required 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="address">Address</Label>
-                    <Input id="address" required />
+                    <Input 
+                      id="address" 
+                      value={formData.address}
+                      onChange={(e) => setFormData({...formData, address: e.target.value})}
+                      required 
+                    />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="city">City</Label>
-                      <Input id="city" required />
+                      <Input 
+                        id="city" 
+                        value={formData.city}
+                        onChange={(e) => setFormData({...formData, city: e.target.value})}
+                        required 
+                      />
                     </div>
                     <div>
                       <Label htmlFor="pincode">Pincode</Label>
-                      <Input id="pincode" required />
+                      <Input 
+                        id="pincode" 
+                        value={formData.pincode}
+                        onChange={(e) => setFormData({...formData, pincode: e.target.value})}
+                        required 
+                      />
                     </div>
                   </div>
                   <div>
                     <Label htmlFor="state">State</Label>
-                    <Input id="state" required />
+                    <Input 
+                      id="state" 
+                      value={formData.state}
+                      onChange={(e) => setFormData({...formData, state: e.target.value})}
+                      required 
+                    />
                   </div>
                 </div>
               </div>
