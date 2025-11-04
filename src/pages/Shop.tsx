@@ -49,15 +49,27 @@ const Shop = () => {
     window.dispatchEvent(new Event("storage"));
   };
 
-  const handleAddToWishlist = (productName: string) => {
+  const handleAddToWishlist = (product: any) => {
     const user = localStorage.getItem("user");
     if (!user) {
       toast.error("Please log in to add items to wishlist");
       return;
     }
-    const count = parseInt(localStorage.getItem("wishlistCount") || "0");
-    localStorage.setItem("wishlistCount", (count + 1).toString());
-    toast.success(`${productName} added to wishlist!`);
+    
+    const storedWishlist = localStorage.getItem("wishlist");
+    const wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+    
+    // Check if already in wishlist
+    const exists = wishlist.find((item: any) => item.id === product.id);
+    if (exists) {
+      toast.info("Already in wishlist");
+      return;
+    }
+    
+    wishlist.push(product);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    localStorage.setItem("wishlistCount", wishlist.length.toString());
+    toast.success(`${product.name} added to wishlist!`);
     window.dispatchEvent(new Event("storage"));
   };
 
@@ -163,7 +175,7 @@ const Shop = () => {
                     size="icon"
                     variant="secondary"
                     className="rounded-full shadow-lg hover-lift"
-                    onClick={() => handleAddToWishlist(product.name)}
+                    onClick={() => handleAddToWishlist(product)}
                   >
                     <Heart className="h-4 w-4" />
                   </Button>

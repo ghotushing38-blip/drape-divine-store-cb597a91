@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { User, Package, Heart, LogOut, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -32,17 +32,23 @@ const Account = () => {
     navigate("/");
   };
 
-  // Get orders from localStorage
   const getOrders = () => {
     const storedOrders = localStorage.getItem("orders");
     return storedOrders ? JSON.parse(storedOrders) : [];
   };
 
+  const getWishlist = () => {
+    const storedWishlist = localStorage.getItem("wishlist");
+    return storedWishlist ? JSON.parse(storedWishlist) : [];
+  };
+
   const [orders, setOrders] = useState(getOrders());
+  const [wishlist, setWishlist] = useState(getWishlist());
 
   useEffect(() => {
     const handleStorageChange = () => {
       setOrders(getOrders());
+      setWishlist(getWishlist());
     };
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
@@ -244,16 +250,43 @@ const Account = () => {
 
           {/* Wishlist Tab */}
           <TabsContent value="wishlist" className="animate-fade-in">
-            <div className="text-center py-20">
-              <Heart className="h-24 w-24 mx-auto mb-6 text-muted-foreground" />
-              <h2 className="text-3xl font-serif font-bold mb-4">Your Wishlist is Empty</h2>
-              <p className="text-muted-foreground mb-8">
-                Save your favorite sarees here for later
-              </p>
-              <Button className="btn-hero" onClick={() => navigate("/shop")}>
-                Browse Collection
-              </Button>
-            </div>
+            {wishlist.length === 0 ? (
+              <div className="text-center py-20">
+                <Heart className="h-24 w-24 mx-auto mb-6 text-muted-foreground" />
+                <h2 className="text-3xl font-serif font-bold mb-4">Your Wishlist is Empty</h2>
+                <p className="text-muted-foreground mb-8">
+                  Save your favorite sarees here for later
+                </p>
+                <Button className="btn-hero" onClick={() => navigate("/shop")}>
+                  Browse Collection
+                </Button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {wishlist.map((item: any) => (
+                  <div key={item.id} className="bg-card rounded-xl overflow-hidden border border-border shadow-soft hover-lift">
+                    <div className="relative h-64">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-lg font-semibold mb-2">{item.name}</h3>
+                      <p className="text-2xl font-bold text-primary mb-3">
+                        ₹{item.price.toLocaleString()}
+                      </p>
+                      <Link to={`/product/${item.id}`}>
+                        <Button className="w-full btn-hero">
+                          View Details
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </div>

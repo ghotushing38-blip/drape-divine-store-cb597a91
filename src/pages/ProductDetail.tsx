@@ -67,7 +67,29 @@ const ProductDetail = () => {
       toast.error("Please log in to add items to wishlist");
       return;
     }
+    
+    const storedWishlist = localStorage.getItem("wishlist");
+    const wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+    
+    // Check if already in wishlist
+    const exists = wishlist.find((item: any) => item.id === product.id);
+    if (exists) {
+      toast.info("Already in wishlist");
+      return;
+    }
+    
+    const wishlistItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+    };
+    
+    wishlist.push(wishlistItem);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    localStorage.setItem("wishlistCount", wishlist.length.toString());
     toast.success("Added to wishlist!");
+    window.dispatchEvent(new Event("storage"));
   };
 
   return (

@@ -12,6 +12,12 @@ import sareecotton from "@/assets/saree-cotton-1.jpg";
 const Wishlist = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
+  const [wishlistItems, setWishlistItems] = useState<any[]>([]);
+
+  const loadWishlist = () => {
+    const storedWishlist = localStorage.getItem("wishlist");
+    return storedWishlist ? JSON.parse(storedWishlist) : [];
+  };
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -21,37 +27,30 @@ const Wishlist = () => {
       return;
     }
     setUser(JSON.parse(storedUser));
+    setWishlistItems(loadWishlist());
+
+    const handleStorageChange = () => {
+      setWishlistItems(loadWishlist());
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, [navigate]);
 
-  const wishlistItems = [
-    {
-      id: 1,
-      name: "Royal Maroon Silk Saree",
-      price: 8999,
-      image: sareesilk,
-    },
-    {
-      id: 2,
-      name: "Elegant Cotton Saree",
-      price: 2499,
-      image: sareecotton,
-    },
-  ];
-
-  const handleAddToCart = (productName: string) => {
+  const handleAddToCart = (item: any) => {
     const count = parseInt(localStorage.getItem("cartCount") || "0");
     localStorage.setItem("cartCount", (count + 1).toString());
-    toast.success(`${productName} added to cart!`);
+    toast.success(`${item.name} added to cart!`);
     window.dispatchEvent(new Event("storage"));
   };
 
-  const handleRemove = (productName: string) => {
-    const count = parseInt(localStorage.getItem("wishlistCount") || "0");
-    if (count > 0) {
-      localStorage.setItem("wishlistCount", (count - 1).toString());
-      toast.success(`${productName} removed from wishlist`);
-      window.dispatchEvent(new Event("storage"));
-    }
+  const handleRemove = (itemId: number) => {
+    const wishlist = loadWishlist();
+    const updatedWishlist = wishlist.filter((item: any) => item.id !== itemId);
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    localStorage.setItem("wishlistCount", updatedWishlist.length.toString());
+    setWishlistItems(updatedWishlist);
+    toast.success("Removed from wishlist");
+    window.dispatchEvent(new Event("storage"));
   };
 
   if (!user) return null;
@@ -93,7 +92,7 @@ const Wishlist = () => {
                     size="icon"
                     variant="destructive"
                     className="absolute top-4 right-4 rounded-full shadow-lg hover-lift"
-                    onClick={() => handleRemove(item.name)}
+                    onClick={() => handleRemove(item.id)}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -110,7 +109,7 @@ const Wishlist = () => {
                   <div className="flex gap-2">
                     <Button
                       className="flex-1 bg-gradient-to-r from-primary to-primary-glow text-primary-foreground"
-                      onClick={() => handleAddToCart(item.name)}
+                      onClick={() => handleAddToCart(item)}
                     >
                       <ShoppingCart className="mr-2 h-4 w-4" />
                       Add to Cart
