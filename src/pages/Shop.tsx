@@ -8,10 +8,21 @@ import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatBot from "@/components/ChatBot";
-import sareesilk from "@/assets/saree-silk-1.jpg";
-import sareecotton from "@/assets/saree-cotton-1.jpg";
-import sareedesigner from "@/assets/saree-designer-1.jpg";
-import sareebanarasi from "@/assets/saree-banarasi-1.jpg";
+import modelSilkMaroon from "@/assets/model-silk-maroon.jpg";
+import modelCottonPink from "@/assets/model-cotton-pink.jpg";
+import modelDesignerBlue from "@/assets/model-designer-blue.jpg";
+import modelBanarasiGreen from "@/assets/model-banarasi-green.jpg";
+import modelKanjivaramRed from "@/assets/model-kanjivaram-red.jpg";
+import modelCottonCream from "@/assets/model-cotton-cream.jpg";
+import modelChanderiPeach from "@/assets/model-chanderi-peach.jpg";
+import modelGeorgetteCoral from "@/assets/model-georgette-coral.jpg";
+import modelBridalRed from "@/assets/model-bridal-red.jpg";
+import modelTussarYellow from "@/assets/model-tussar-yellow.jpg";
+import modelLinenGreen from "@/assets/model-linen-green.jpg";
+import modelEmbroideredPurple from "@/assets/model-embroidered-purple.jpg";
+import modelBrocadeNavy from "@/assets/model-brocade-navy.jpg";
+import modelPatolaBlue from "@/assets/model-patola-blue.jpg";
+import modelOrganzaLavender from "@/assets/model-organza-lavender.jpg";
 
 const Shop = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,21 +31,21 @@ const Shop = () => {
   const [selectedOccasion, setSelectedOccasion] = useState("all");
 
   const products = [
-    { id: 1, name: "Royal Maroon Silk Saree", price: 8999, fabric: "silk", occasion: "wedding", image: sareesilk },
-    { id: 2, name: "Elegant Cotton Saree", price: 2499, fabric: "cotton", occasion: "casual", image: sareecotton },
-    { id: 3, name: "Designer Blue Gold Saree", price: 12999, fabric: "designer", occasion: "party", image: sareedesigner },
-    { id: 4, name: "Banarasi Green Saree", price: 15999, fabric: "banarasi", occasion: "wedding", image: sareebanarasi },
-    { id: 5, name: "Premium Silk Saree", price: 9999, fabric: "silk", occasion: "festive", image: sareesilk },
-    { id: 6, name: "Handloom Cotton Saree", price: 1999, fabric: "cotton", occasion: "casual", image: sareecotton },
-    { id: 7, name: "Kanjivaram Silk Saree", price: 18999, fabric: "silk", occasion: "wedding", image: sareesilk },
-    { id: 8, name: "Chanderi Cotton Saree", price: 3499, fabric: "cotton", occasion: "office", image: sareecotton },
-    { id: 9, name: "Georgette Designer Saree", price: 6999, fabric: "designer", occasion: "party", image: sareedesigner },
-    { id: 10, name: "Pure Banarasi Silk", price: 22999, fabric: "banarasi", occasion: "bridal", image: sareebanarasi },
-    { id: 11, name: "Tussar Silk Saree", price: 7499, fabric: "silk", occasion: "festive", image: sareesilk },
-    { id: 12, name: "Linen Cotton Saree", price: 2999, fabric: "cotton", occasion: "casual", image: sareecotton },
-    { id: 13, name: "Embroidered Designer Saree", price: 14999, fabric: "designer", occasion: "wedding", image: sareedesigner },
-    { id: 14, name: "Brocade Banarasi Saree", price: 19999, fabric: "banarasi", occasion: "bridal", image: sareebanarasi },
-    { id: 15, name: "Patola Silk Saree", price: 11999, fabric: "silk", occasion: "festive", image: sareesilk },
+    { id: 1, name: "Royal Maroon Silk Saree", price: 8999, fabric: "silk", occasion: "wedding", image: modelSilkMaroon },
+    { id: 2, name: "Elegant Cotton Saree in Pink", price: 2499, fabric: "cotton", occasion: "casual", image: modelCottonPink },
+    { id: 3, name: "Designer Blue Gold Saree", price: 12999, fabric: "designer", occasion: "party", image: modelDesignerBlue },
+    { id: 4, name: "Banarasi Green Silk Saree", price: 15999, fabric: "banarasi", occasion: "wedding", image: modelBanarasiGreen },
+    { id: 5, name: "Premium Kanjivaram Wine Silk", price: 18999, fabric: "silk", occasion: "wedding", image: modelKanjivaramRed },
+    { id: 6, name: "Handloom Cotton Cream Saree", price: 1999, fabric: "cotton", occasion: "casual", image: modelCottonCream },
+    { id: 7, name: "Chanderi Peach Cotton Saree", price: 3499, fabric: "cotton", occasion: "office", image: modelChanderiPeach },
+    { id: 8, name: "Georgette Coral Designer Saree", price: 6999, fabric: "designer", occasion: "party", image: modelGeorgetteCoral },
+    { id: 9, name: "Bridal Red Banarasi Saree", price: 22999, fabric: "banarasi", occasion: "bridal", image: modelBridalRed },
+    { id: 10, name: "Tussar Silk Yellow Saree", price: 7499, fabric: "silk", occasion: "festive", image: modelTussarYellow },
+    { id: 11, name: "Linen Green Cotton Saree", price: 2999, fabric: "cotton", occasion: "casual", image: modelLinenGreen },
+    { id: 12, name: "Embroidered Purple Designer Saree", price: 14999, fabric: "designer", occasion: "wedding", image: modelEmbroideredPurple },
+    { id: 13, name: "Brocade Navy Banarasi Saree", price: 19999, fabric: "banarasi", occasion: "bridal", image: modelBrocadeNavy },
+    { id: 14, name: "Patola Blue Silk Saree", price: 11999, fabric: "silk", occasion: "festive", image: modelPatolaBlue },
+    { id: 15, name: "Organza Lavender Designer Saree", price: 9999, fabric: "designer", occasion: "party", image: modelOrganzaLavender },
   ];
 
   const handleAddToCart = (productName: string) => {
@@ -94,64 +105,65 @@ const Shop = () => {
       <div className="container mx-auto px-4 pt-32 pb-20">
         {/* Page Header */}
         <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-5xl font-serif font-bold mb-4">
-            Our <span className="text-primary">Collection</span>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">
+            Our Exclusive <span className="shimmer-text">Collection</span>
           </h1>
-          <div className="divider-ethnic"></div>
-          <p className="text-muted-foreground text-lg">
-            Discover elegance in every thread
+          <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
+            Discover elegance in every thread - Handpicked sarees featuring authentic models showcasing traditional and contemporary designs
           </p>
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8 animate-slide-up">
-          <div className="flex-1">
-            <Input
-              type="text"
-              placeholder="Search sarees..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full"
-            />
+        <div className="glass-effect p-6 rounded-2xl mb-12 animate-slide-up">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <Input
+                type="text"
+                placeholder="Search your perfect saree..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full h-12 text-lg"
+              />
+            </div>
+            <Select value={selectedFabric} onValueChange={setSelectedFabric}>
+              <SelectTrigger className="w-full md:w-[220px] h-12">
+                <SelectValue placeholder="Fabric Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Fabrics</SelectItem>
+                <SelectItem value="silk">Pure Silk (Kanjivaram, Tussar, Patola)</SelectItem>
+                <SelectItem value="cotton">Cotton (Handloom, Chanderi, Linen)</SelectItem>
+                <SelectItem value="designer">Designer (Georgette, Embroidered, Organza)</SelectItem>
+                <SelectItem value="banarasi">Banarasi (Pure Silk, Brocade)</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={selectedOccasion} onValueChange={setSelectedOccasion}>
+              <SelectTrigger className="w-full md:w-[220px] h-12">
+                <SelectValue placeholder="Occasion" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Occasions</SelectItem>
+                <SelectItem value="bridal">Bridal & Wedding Ceremony</SelectItem>
+                <SelectItem value="wedding">Wedding Guest & Reception</SelectItem>
+                <SelectItem value="party">Party & Evening Events</SelectItem>
+                <SelectItem value="festive">Festive & Celebration</SelectItem>
+                <SelectItem value="office">Office & Formal Wear</SelectItem>
+                <SelectItem value="casual">Casual & Daily Wear</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={selectedPrice} onValueChange={setSelectedPrice}>
+              <SelectTrigger className="w-full md:w-[200px] h-12">
+                <SelectValue placeholder="Price Range" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Prices</SelectItem>
+                <SelectItem value="under5k">Under ₹5,000</SelectItem>
+                <SelectItem value="5k-10k">₹5,000 - ₹10,000</SelectItem>
+                <SelectItem value="10k-15k">₹10,000 - ₹15,000</SelectItem>
+                <SelectItem value="above15k">Above ₹15,000</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
-          <Select value={selectedFabric} onValueChange={setSelectedFabric}>
-            <SelectTrigger className="w-full md:w-[200px]">
-              <SelectValue placeholder="Fabric Type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Fabrics</SelectItem>
-              <SelectItem value="silk">Silk (Kanjivaram, Tussar, Patola)</SelectItem>
-              <SelectItem value="cotton">Cotton (Handloom, Chanderi, Linen)</SelectItem>
-              <SelectItem value="designer">Designer (Georgette, Embroidered)</SelectItem>
-              <SelectItem value="banarasi">Banarasi (Pure Silk, Brocade)</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select value={selectedOccasion} onValueChange={setSelectedOccasion}>
-            <SelectTrigger className="w-full md:w-[200px]">
-              <SelectValue placeholder="Occasion" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Occasions</SelectItem>
-              <SelectItem value="bridal">Bridal & Wedding</SelectItem>
-              <SelectItem value="wedding">Wedding Guest</SelectItem>
-              <SelectItem value="party">Party & Events</SelectItem>
-              <SelectItem value="festive">Festive & Celebration</SelectItem>
-              <SelectItem value="office">Office & Formal</SelectItem>
-              <SelectItem value="casual">Casual & Daily Wear</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select value={selectedPrice} onValueChange={setSelectedPrice}>
-            <SelectTrigger className="w-full md:w-[200px]">
-              <SelectValue placeholder="Price Range" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Prices</SelectItem>
-              <SelectItem value="under5k">Under ₹5,000</SelectItem>
-              <SelectItem value="5k-10k">₹5,000 - ₹10,000</SelectItem>
-              <SelectItem value="10k-15k">₹10,000 - ₹15,000</SelectItem>
-              <SelectItem value="above15k">Above ₹15,000</SelectItem>
-            </SelectContent>
-          </Select>
         </div>
 
         {/* Product Grid */}
@@ -159,47 +171,53 @@ const Shop = () => {
           {filteredProducts.map((product, idx) => (
             <div
               key={product.id}
-              className="product-card animate-scale-in"
-              style={{ animationDelay: `${idx * 100}ms` }}
+              className="product-card animate-scale-in group"
+              style={{ animationDelay: `${idx * 50}ms` }}
             >
-              <div className="relative h-96 overflow-hidden group">
+              <div className="relative h-[500px] overflow-hidden">
                 <Link to={`/product/${product.id}`}>
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                   />
                 </Link>
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="absolute top-4 right-4 flex flex-col gap-2">
                   <Button
                     size="icon"
                     variant="secondary"
-                    className="rounded-full shadow-lg hover-lift"
+                    className="rounded-full shadow-rosegold hover-lift hover:scale-110 transition-transform"
                     onClick={() => handleAddToWishlist(product)}
                   >
-                    <Heart className="h-4 w-4" />
+                    <Heart className="h-5 w-5" />
                   </Button>
                   <Button
                     size="icon"
                     variant="secondary"
-                    className="rounded-full shadow-lg hover-lift"
+                    className="rounded-full shadow-rosegold hover-lift hover:scale-110 transition-transform"
                     onClick={() => handleAddToCart(product.name)}
                   >
-                    <ShoppingCart className="h-4 w-4" />
+                    <ShoppingCart className="h-5 w-5" />
                   </Button>
                 </div>
               </div>
-              <div className="p-4">
+              <div className="p-6 bg-gradient-to-b from-card to-muted/20">
                 <Link to={`/product/${product.id}`}>
-                  <h3 className="text-lg font-semibold mb-2 hover:text-primary transition-colors">
+                  <h3 className="text-xl font-serif font-semibold mb-3 hover:text-primary transition-colors leading-tight">
                     {product.name}
                   </h3>
                 </Link>
-                <p className="text-2xl font-bold text-primary mb-3">
-                  ₹{product.price.toLocaleString()}
-                </p>
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-3xl font-bold text-primary font-serif">
+                    ₹{product.price.toLocaleString()}
+                  </p>
+                  <span className="text-sm text-muted-foreground capitalize bg-muted px-3 py-1 rounded-full">
+                    {product.occasion}
+                  </span>
+                </div>
                 <Link to={`/product/${product.id}`}>
-                  <Button className="w-full bg-gradient-to-r from-primary to-primary-glow text-primary-foreground">
+                  <Button className="w-full bg-gradient-to-r from-primary via-primary-glow to-primary text-primary-foreground hover:shadow-rosegold transition-all">
                     View Details
                   </Button>
                 </Link>
@@ -210,8 +228,11 @@ const Shop = () => {
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-xl text-muted-foreground">
-              No sarees found matching your criteria. Try adjusting the filters.
+            <p className="text-2xl text-muted-foreground mb-4">
+              No sarees found matching your criteria
+            </p>
+            <p className="text-muted-foreground">
+              Try adjusting the filters or search query to discover more options
             </p>
           </div>
         )}

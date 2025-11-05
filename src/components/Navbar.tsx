@@ -146,43 +146,53 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Enhanced Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-border animate-slide-in-right bg-card">
-              <div className="flex flex-col space-y-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`px-4 py-2 text-lg font-medium rounded-lg transition-colors ${
-                      location.pathname === link.path 
-                        ? "bg-primary/10 text-primary" 
-                        : "text-foreground/80 hover:bg-muted hover:text-primary"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-                <div className="border-t border-border pt-4 px-4">
-                  <div className="flex gap-3 mb-4">
-                    <Link to="/wishlist" className="flex-1" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Button variant="outline" className="w-full">
-                        <Heart className="h-4 w-4 mr-2" />
-                        Wishlist ({wishlistCount})
+            <div className="md:hidden absolute top-full left-0 right-0 bg-card/98 backdrop-blur-lg shadow-elegant border-t border-border animate-slide-in-right">
+              <div className="container mx-auto px-4 py-6">
+                <div className="flex flex-col space-y-3 mb-6">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`px-6 py-3 text-lg font-semibold rounded-xl transition-all ${
+                        location.pathname === link.path 
+                          ? "bg-gradient-to-r from-primary/20 to-primary-glow/20 text-primary border-l-4 border-primary" 
+                          : "text-foreground/80 hover:bg-muted hover:text-primary hover:translate-x-2"
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+                
+                <div className="border-t border-border/50 pt-6 space-y-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    <Link to="/wishlist" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Button variant="outline" className="w-full h-14 text-base border-2 hover:border-primary hover:bg-primary/5">
+                        <Heart className="h-5 w-5 mr-2" />
+                        Wishlist
+                        <span className="ml-auto bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                          {wishlistCount}
+                        </span>
                       </Button>
                     </Link>
-                    <Link to="/cart" className="flex-1" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Button variant="outline" className="w-full">
-                        <ShoppingCart className="h-4 w-4 mr-2" />
-                        Cart ({cartCount})
+                    <Link to="/cart" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Button variant="outline" className="w-full h-14 text-base border-2 hover:border-primary hover:bg-primary/5">
+                        <ShoppingCart className="h-5 w-5 mr-2" />
+                        Cart
+                        <span className="ml-auto bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                          {cartCount}
+                        </span>
                       </Button>
                     </Link>
                   </div>
+                  
                   {user ? (
                     <Link to="/account" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Button className="w-full bg-gradient-to-r from-primary to-primary-glow text-primary-foreground">
-                        <User className="h-4 w-4 mr-2" />
+                      <Button className="w-full h-14 text-lg bg-gradient-to-r from-primary via-primary-glow to-primary text-primary-foreground shadow-elegant hover:shadow-rosegold">
+                        <User className="h-5 w-5 mr-2" />
                         My Account
                       </Button>
                     </Link>
@@ -192,7 +202,7 @@ const Navbar = () => {
                         setIsLoginModalOpen(true);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full bg-gradient-to-r from-primary to-primary-glow text-primary-foreground"
+                      className="w-full h-14 text-lg bg-gradient-to-r from-primary via-primary-glow to-primary text-primary-foreground shadow-elegant hover:shadow-rosegold"
                     >
                       Login / Sign Up
                     </Button>
