@@ -116,7 +116,7 @@ const About = () => {
         </div>
 
         {/* Values Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {[
             {
               title: "Artisan Support",
@@ -140,6 +140,93 @@ const About = () => {
               <p className="text-muted-foreground">{value.description}</p>
             </div>
           ))}
+        </div>
+
+        {/* Our Journey Section */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-serif font-bold mb-4">
+              Our <span className="text-primary">Journey</span>
+            </h2>
+            <div className="divider-ethnic"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { year: "2000", title: "Foundation", desc: "Started with a small boutique in Surat" },
+              { year: "2008", title: "Expansion", desc: "Partnered with 50+ artisan communities" },
+              { year: "2015", title: "Digital Presence", desc: "Launched online platform nationwide" },
+              { year: "2024", title: "Global Reach", desc: "Shipping to 25+ countries worldwide" },
+            ].map((milestone, idx) => (
+              <div
+                key={idx}
+                className="glass-effect p-6 rounded-xl text-center hover-lift animate-scale-in"
+                style={{ animationDelay: `${idx * 100}ms` }}
+              >
+                <div className="text-5xl font-bold text-primary mb-3">{milestone.year}</div>
+                <h4 className="text-xl font-serif font-semibold mb-2">{milestone.title}</h4>
+                <p className="text-muted-foreground text-sm">{milestone.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Craftsmanship Section */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-serif font-bold mb-4">
+              The Art of <span className="text-primary">Craftsmanship</span>
+            </h2>
+            <div className="divider-ethnic"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "Handwoven Excellence",
+                description: "Each saree is meticulously handwoven by master craftsmen who have inherited their skills through generations. The intricate patterns and designs take weeks to complete, ensuring unparalleled quality and authenticity."
+              },
+              {
+                title: "Natural Dyes & Materials",
+                description: "We use only the finest natural silk threads and traditional dyeing techniques. Our artisans employ age-old methods to create vibrant, long-lasting colors that are eco-friendly and skin-safe."
+              },
+              {
+                title: "Quality Assurance",
+                description: "Every saree undergoes multiple quality checks at different stages. From thread selection to final finishing, we ensure that only flawless pieces reach our customers, maintaining our reputation for excellence."
+              },
+              {
+                title: "Sustainable Practices",
+                description: "We're committed to environmental sustainability. Our production process minimizes waste, uses renewable resources, and supports eco-friendly practices while empowering local artisan communities."
+              }
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-card p-6 rounded-xl border border-border shadow-soft hover-lift animate-scale-in"
+                style={{ animationDelay: `${idx * 100}ms` }}
+              >
+                <h3 className="text-2xl font-serif font-bold mb-3 text-primary">{item.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Awards & Recognition */}
+        <div className="text-center bg-card p-12 rounded-2xl border border-border shadow-elegant">
+          <h2 className="text-4xl font-serif font-bold mb-8">
+            Awards & <span className="text-primary">Recognition</span>
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { count: "20+", label: "Years of Excellence" },
+              { count: "50,000+", label: "Happy Customers" },
+              { count: "100+", label: "Artisan Partners" },
+              { count: "15+", label: "Industry Awards" }
+            ].map((stat, idx) => (
+              <div key={idx} className="animate-fade-in" style={{ animationDelay: `${idx * 100}ms` }}>
+                <div className="text-5xl font-bold text-primary mb-2">{stat.count}</div>
+                <div className="text-muted-foreground">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

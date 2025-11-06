@@ -1,16 +1,36 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatBot from "@/components/ChatBot";
 import sareesilk from "@/assets/saree-silk-1.jpg";
 
 const Cart = () => {
-  const cartItems = [
+  const [cartItems, setCartItems] = useState([
     { id: 1, name: "Royal Maroon Silk Saree", price: 8999, quantity: 1, image: sareesilk },
     { id: 2, name: "Designer Blue Gold Saree", price: 12999, quantity: 1, image: sareesilk },
-  ];
+  ]);
+
+  const handleRemove = (itemId: number) => {
+    const updatedCart = cartItems.filter(item => item.id !== itemId);
+    setCartItems(updatedCart);
+    localStorage.setItem("cartCount", updatedCart.length.toString());
+    toast.success("Item removed from cart");
+    window.dispatchEvent(new Event("storage"));
+  };
+
+  const handleQuantityChange = (itemId: number, change: number) => {
+    setCartItems(cartItems.map(item => {
+      if (item.id === itemId) {
+        const newQuantity = Math.max(1, item.quantity + change);
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    }));
+  };
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = subtotal > 2999 ? 0 : 99;
@@ -49,19 +69,31 @@ const Cart = () => {
                       <p className="text-2xl font-bold text-primary mb-4">
                         ₹{item.price.toLocaleString()}
                       </p>
-                      <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <Button size="icon" variant="outline">
+                          <Button 
+                            size="icon" 
+                            variant="outline"
+                            onClick={() => handleQuantityChange(item.id, -1)}
+                          >
                             <Minus className="h-4 w-4" />
                           </Button>
                           <span className="text-lg font-medium w-8 text-center">
                             {item.quantity}
                           </span>
-                          <Button size="icon" variant="outline">
+                          <Button 
+                            size="icon" 
+                            variant="outline"
+                            onClick={() => handleQuantityChange(item.id, 1)}
+                          >
                             <Plus className="h-4 w-4" />
                           </Button>
                         </div>
-                        <Button size="icon" variant="destructive">
+                        <Button 
+                          size="icon" 
+                          variant="destructive"
+                          onClick={() => handleRemove(item.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>

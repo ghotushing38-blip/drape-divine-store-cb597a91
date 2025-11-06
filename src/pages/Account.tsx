@@ -34,7 +34,39 @@ const Account = () => {
 
   const getOrders = () => {
     const storedOrders = localStorage.getItem("orders");
-    return storedOrders ? JSON.parse(storedOrders) : [];
+    if (storedOrders) {
+      return JSON.parse(storedOrders);
+    }
+    // Sample orders with proper image imports
+    return [
+      {
+        id: "ORD-2024-001",
+        orderDate: "January 15, 2024",
+        deliveryDate: "January 22, 2024",
+        total: 21998,
+        status: "Delivered",
+        shippingAddress: "123 Main Street, Mumbai, Maharashtra 400001",
+        paymentMethod: "Credit Card (****4532)",
+        trackingNumber: "TRK-IND-892734",
+        items: [
+          { name: "Royal Maroon Silk Saree", price: 8999, quantity: 1, image: "/src/assets/model-silk-maroon.jpg" },
+          { name: "Designer Blue Gold Saree", price: 12999, quantity: 1, image: "/src/assets/model-designer-blue.jpg" }
+        ]
+      },
+      {
+        id: "ORD-2024-002",
+        orderDate: "February 3, 2024",
+        deliveryDate: "February 12, 2024",
+        total: 15999,
+        status: "In Transit",
+        shippingAddress: "456 Park Avenue, Delhi 110001",
+        paymentMethod: "UPI",
+        trackingNumber: "TRK-IND-923847",
+        items: [
+          { name: "Banarasi Green Silk Saree", price: 15999, quantity: 1, image: "/src/assets/model-banarasi-green.jpg" }
+        ]
+      }
+    ];
   };
 
   const getWishlist = () => {

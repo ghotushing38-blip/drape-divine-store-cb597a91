@@ -204,6 +204,80 @@ const Contact = () => {
             ></iframe>
           </div>
         </div>
+
+        {/* FAQs Section */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-serif font-bold mb-4">
+              Frequently Asked <span className="text-primary">Questions</span>
+            </h2>
+            <div className="divider-ethnic"></div>
+          </div>
+          <div className="max-w-4xl mx-auto space-y-4">
+            {[
+              {
+                q: "What are your shipping charges?",
+                a: "We offer FREE shipping on orders above ₹2,999. For orders below this amount, a nominal shipping fee of ₹99 applies across India."
+              },
+              {
+                q: "Do you ship internationally?",
+                a: "Yes! We ship to 25+ countries worldwide. International shipping charges vary by location and are calculated at checkout."
+              },
+              {
+                q: "What is your return policy?",
+                a: "We accept returns within 7 days of delivery if the product is unused and in original packaging. Custom-made sarees are non-returnable."
+              },
+              {
+                q: "How can I track my order?",
+                a: "Once your order ships, you'll receive a tracking number via email and SMS. You can also track orders from your account dashboard."
+              },
+              {
+                q: "Do you provide saree care instructions?",
+                a: "Yes! Each saree comes with detailed care instructions. We also have a care guide section on our website with fabric-specific tips."
+              }
+            ].map((faq, idx) => (
+              <div
+                key={idx}
+                className="glass-effect p-6 rounded-xl hover-lift animate-scale-in"
+                style={{ animationDelay: `${idx * 50}ms` }}
+              >
+                <h3 className="text-xl font-semibold mb-3 text-primary">{faq.q}</h3>
+                <p className="text-muted-foreground leading-relaxed">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Customer Service Section */}
+        <div className="mt-20 bg-gradient-to-br from-primary/10 to-royal/10 p-12 rounded-2xl border border-border">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-serif font-bold mb-4">
+              Need Immediate <span className="text-primary">Assistance?</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Our customer service team is always ready to help you with any queries or concerns.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {[
+              { title: "Live Chat", desc: "Available Mon-Sat, 10 AM - 8 PM", action: "Start Chat" },
+              { title: "WhatsApp Support", desc: "+91 98765 43210", action: "Message Us" },
+              { title: "Video Call Consultation", desc: "Book a virtual appointment", action: "Schedule Now" }
+            ].map((service, idx) => (
+              <div
+                key={idx}
+                className="bg-card p-6 rounded-xl text-center hover-lift animate-scale-in"
+                style={{ animationDelay: `${idx * 100}ms` }}
+              >
+                <h4 className="text-lg font-semibold mb-2">{service.title}</h4>
+                <p className="text-sm text-muted-foreground mb-4">{service.desc}</p>
+                <Button variant="outline" size="sm" className="w-full">
+                  {service.action}
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <Footer />
