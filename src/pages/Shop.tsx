@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Heart, ShoppingCart, Filter } from "lucide-react";
+import { Heart, ShoppingCart, Filter, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -23,12 +24,29 @@ import modelEmbroideredPurple from "@/assets/model-embroidered-purple.jpg";
 import modelBrocadeNavy from "@/assets/model-brocade-navy.jpg";
 import modelPatolaBlue from "@/assets/model-patola-blue.jpg";
 import modelOrganzaLavender from "@/assets/model-organza-lavender.jpg";
+import modelKanchipuramBlue from "@/assets/model-kanchipuram-blue.jpg";
+import modelModernMint from "@/assets/model-modern-mint.jpg";
+import modelChiffonBlack from "@/assets/model-chiffon-black.jpg";
+import modelPaithaniOrange from "@/assets/model-paithani-orange.jpg";
+import modelOrganzaPink from "@/assets/model-organza-pink.jpg";
+import modelVelvetPurple from "@/assets/model-velvet-purple.jpg";
+import modelTussarIvory from "@/assets/model-tussar-ivory.jpg";
+import modelSatinTeal from "@/assets/model-satin-teal.jpg";
+import modelBandhaniBurgundy from "@/assets/model-bandhani-burgundy.jpg";
+import modelNetWhite from "@/assets/model-net-white.jpg";
+import modelMaheshwariMustard from "@/assets/model-maheshwari-mustard.jpg";
+import modelRuffleGrey from "@/assets/model-ruffle-grey.jpg";
+import modelKanjeevaramGreen from "@/assets/model-kanjeevaram-green.jpg";
+import modelLehengaBlush from "@/assets/model-lehenga-blush.jpg";
+import modelBaluchariTurquoise from "@/assets/model-baluchari-turquoise.jpg";
 
 const Shop = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedFabric, setSelectedFabric] = useState("all");
-  const [selectedPrice, setSelectedPrice] = useState("all");
-  const [selectedOccasion, setSelectedOccasion] = useState("all");
+  const [selectedFabrics, setSelectedFabrics] = useState<string[]>([]);
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
+  const [selectedOccasions, setSelectedOccasions] = useState<string[]>([]);
+  const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
   const [wishlistItems, setWishlistItems] = useState<number[]>([]);
 
   // Load wishlist on mount
@@ -41,21 +59,36 @@ const Shop = () => {
   }, []);
 
   const products = [
-    { id: 1, name: "Royal Maroon Silk Saree", price: 8999, fabric: "silk", occasion: "wedding", image: modelSilkMaroon },
-    { id: 2, name: "Elegant Cotton Saree in Pink", price: 2499, fabric: "cotton", occasion: "casual", image: modelCottonPink },
-    { id: 3, name: "Designer Blue Gold Saree", price: 12999, fabric: "designer", occasion: "party", image: modelDesignerBlue },
-    { id: 4, name: "Banarasi Green Silk Saree", price: 15999, fabric: "banarasi", occasion: "wedding", image: modelBanarasiGreen },
-    { id: 5, name: "Premium Kanjivaram Wine Silk", price: 18999, fabric: "silk", occasion: "wedding", image: modelKanjivaramRed },
-    { id: 6, name: "Handloom Cotton Cream Saree", price: 1999, fabric: "cotton", occasion: "casual", image: modelCottonCream },
-    { id: 7, name: "Chanderi Peach Cotton Saree", price: 3499, fabric: "cotton", occasion: "office", image: modelChanderiPeach },
-    { id: 8, name: "Georgette Coral Designer Saree", price: 6999, fabric: "designer", occasion: "party", image: modelGeorgetteCoral },
-    { id: 9, name: "Bridal Red Banarasi Saree", price: 22999, fabric: "banarasi", occasion: "bridal", image: modelBridalRed },
-    { id: 10, name: "Tussar Silk Yellow Saree", price: 7499, fabric: "silk", occasion: "festive", image: modelTussarYellow },
-    { id: 11, name: "Linen Green Cotton Saree", price: 2999, fabric: "cotton", occasion: "casual", image: modelLinenGreen },
-    { id: 12, name: "Embroidered Purple Designer Saree", price: 14999, fabric: "designer", occasion: "wedding", image: modelEmbroideredPurple },
-    { id: 13, name: "Brocade Navy Banarasi Saree", price: 19999, fabric: "banarasi", occasion: "bridal", image: modelBrocadeNavy },
-    { id: 14, name: "Patola Blue Silk Saree", price: 11999, fabric: "silk", occasion: "festive", image: modelPatolaBlue },
-    { id: 15, name: "Organza Lavender Designer Saree", price: 9999, fabric: "designer", occasion: "party", image: modelOrganzaLavender },
+    { id: 1, name: "Royal Maroon Silk Saree", price: 8999, fabric: "silk", color: "red", occasion: "wedding", style: "traditional", image: modelSilkMaroon },
+    { id: 2, name: "Elegant Cotton Saree in Pink", price: 2499, fabric: "cotton", color: "pink", occasion: "casual", style: "traditional", image: modelCottonPink },
+    { id: 3, name: "Designer Blue Gold Saree", price: 12999, fabric: "designer", color: "blue", occasion: "party", style: "modern", image: modelDesignerBlue },
+    { id: 4, name: "Banarasi Green Silk Saree", price: 15999, fabric: "banarasi", color: "green", occasion: "wedding", style: "traditional", image: modelBanarasiGreen },
+    { id: 5, name: "Premium Kanjivaram Wine Silk", price: 18999, fabric: "silk", color: "red", occasion: "wedding", style: "traditional", image: modelKanjivaramRed },
+    { id: 6, name: "Handloom Cotton Cream Saree", price: 1999, fabric: "cotton", color: "white", occasion: "casual", style: "traditional", image: modelCottonCream },
+    { id: 7, name: "Chanderi Peach Cotton Saree", price: 3499, fabric: "cotton", color: "orange", occasion: "office", style: "traditional", image: modelChanderiPeach },
+    { id: 8, name: "Georgette Coral Designer Saree", price: 6999, fabric: "designer", color: "orange", occasion: "party", style: "modern", image: modelGeorgetteCoral },
+    { id: 9, name: "Bridal Red Banarasi Saree", price: 22999, fabric: "banarasi", color: "red", occasion: "bridal", style: "traditional", image: modelBridalRed },
+    { id: 10, name: "Tussar Silk Yellow Saree", price: 7499, fabric: "silk", color: "yellow", occasion: "festive", style: "traditional", image: modelTussarYellow },
+    { id: 11, name: "Linen Green Cotton Saree", price: 2999, fabric: "cotton", color: "green", occasion: "casual", style: "traditional", image: modelLinenGreen },
+    { id: 12, name: "Embroidered Purple Designer Saree", price: 14999, fabric: "designer", color: "purple", occasion: "wedding", style: "modern", image: modelEmbroideredPurple },
+    { id: 13, name: "Brocade Navy Banarasi Saree", price: 19999, fabric: "banarasi", color: "blue", occasion: "bridal", style: "traditional", image: modelBrocadeNavy },
+    { id: 14, name: "Patola Blue Silk Saree", price: 11999, fabric: "silk", color: "blue", occasion: "festive", style: "traditional", image: modelPatolaBlue },
+    { id: 15, name: "Organza Lavender Designer Saree", price: 9999, fabric: "designer", color: "purple", occasion: "party", style: "modern", image: modelOrganzaLavender },
+    { id: 16, name: "Kanchipuram Royal Blue Silk", price: 17999, fabric: "silk", color: "blue", occasion: "wedding", style: "traditional", image: modelKanchipuramBlue },
+    { id: 17, name: "Modern Mint Georgette Saree", price: 8499, fabric: "georgette", color: "green", occasion: "party", style: "modern", image: modelModernMint },
+    { id: 18, name: "Classic Black Chiffon Saree", price: 9999, fabric: "chiffon", color: "black", occasion: "party", style: "modern", image: modelChiffonBlack },
+    { id: 19, name: "Paithani Orange Silk Saree", price: 20999, fabric: "silk", color: "orange", occasion: "wedding", style: "traditional", image: modelPaithaniOrange },
+    { id: 20, name: "Floral Organza Pink Saree", price: 11499, fabric: "organza", color: "pink", occasion: "party", style: "modern", image: modelOrganzaPink },
+    { id: 21, name: "Velvet Purple Embellished Saree", price: 24999, fabric: "velvet", color: "purple", occasion: "bridal", style: "modern", image: modelVelvetPurple },
+    { id: 22, name: "Madhubani Tussar Ivory Saree", price: 13999, fabric: "tussar", color: "white", occasion: "festive", style: "traditional", image: modelTussarIvory },
+    { id: 23, name: "Satin Teal Geometric Print", price: 7999, fabric: "satin", color: "blue", occasion: "office", style: "modern", image: modelSatinTeal },
+    { id: 24, name: "Bandhani Burgundy Silk Saree", price: 16999, fabric: "silk", color: "red", occasion: "wedding", style: "traditional", image: modelBandhaniBurgundy },
+    { id: 25, name: "Net White Sequin Saree", price: 12999, fabric: "net", color: "white", occasion: "party", style: "modern", image: modelNetWhite },
+    { id: 26, name: "Maheshwari Mustard Silk Saree", price: 9499, fabric: "silk", color: "yellow", occasion: "festive", style: "traditional", image: modelMaheshwariMustard },
+    { id: 27, name: "Contemporary Grey Ruffle Saree", price: 15999, fabric: "designer", color: "grey", occasion: "party", style: "modern", image: modelRuffleGrey },
+    { id: 28, name: "Kanjeevaram Bottle Green Silk", price: 21999, fabric: "silk", color: "green", occasion: "wedding", style: "traditional", image: modelKanjeevaramGreen },
+    { id: 29, name: "Lehenga Style Blush Pink Saree", price: 18499, fabric: "designer", color: "pink", occasion: "wedding", style: "modern", image: modelLehengaBlush },
+    { id: 30, name: "Baluchari Turquoise Silk Saree", price: 19999, fabric: "silk", color: "blue", occasion: "festive", style: "traditional", image: modelBaluchariTurquoise },
   ];
 
   const handleAddToCart = (productName: string) => {
@@ -95,17 +128,58 @@ const Shop = () => {
     window.dispatchEvent(new Event("storage"));
   };
 
+  const toggleFilter = (category: string, value: string) => {
+    const setters: { [key: string]: React.Dispatch<React.SetStateAction<string[]>> } = {
+      fabric: setSelectedFabrics,
+      color: setSelectedColors,
+      price: setSelectedPrices,
+      occasion: setSelectedOccasions,
+      style: setSelectedStyles,
+    };
+    
+    const getters: { [key: string]: string[] } = {
+      fabric: selectedFabrics,
+      color: selectedColors,
+      price: selectedPrices,
+      occasion: selectedOccasions,
+      style: selectedStyles,
+    };
+
+    const currentValues = getters[category];
+    const setter = setters[category];
+    
+    if (currentValues.includes(value)) {
+      setter(currentValues.filter(v => v !== value));
+    } else {
+      setter([...currentValues, value]);
+    }
+  };
+
+  const clearAllFilters = () => {
+    setSelectedFabrics([]);
+    setSelectedColors([]);
+    setSelectedPrices([]);
+    setSelectedOccasions([]);
+    setSelectedStyles([]);
+    setSearchQuery("");
+  };
+
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFabric = selectedFabric === "all" || product.fabric === selectedFabric;
-    const matchesOccasion = selectedOccasion === "all" || product.occasion === selectedOccasion;
-    const matchesPrice =
-      selectedPrice === "all" ||
-      (selectedPrice === "under5k" && product.price < 5000) ||
-      (selectedPrice === "5k-10k" && product.price >= 5000 && product.price <= 10000) ||
-      (selectedPrice === "10k-15k" && product.price >= 10000 && product.price <= 15000) ||
-      (selectedPrice === "above15k" && product.price > 15000);
-    return matchesSearch && matchesFabric && matchesPrice && matchesOccasion;
+    const matchesFabric = selectedFabrics.length === 0 || selectedFabrics.includes(product.fabric);
+    const matchesColor = selectedColors.length === 0 || selectedColors.includes(product.color);
+    const matchesOccasion = selectedOccasions.length === 0 || selectedOccasions.includes(product.occasion);
+    const matchesStyle = selectedStyles.length === 0 || selectedStyles.includes(product.style);
+    const matchesPrice = selectedPrices.length === 0 || selectedPrices.some(range => {
+      if (range === "under5k") return product.price < 5000;
+      if (range === "5k-10k") return product.price >= 5000 && product.price <= 10000;
+      if (range === "10k-15k") return product.price >= 10000 && product.price <= 15000;
+      if (range === "15k-20k") return product.price >= 15000 && product.price <= 20000;
+      if (range === "above20k") return product.price > 20000;
+      return false;
+    });
+    
+    return matchesSearch && matchesFabric && matchesColor && matchesPrice && matchesOccasion && matchesStyle;
   });
 
   return (
@@ -127,11 +201,21 @@ const Shop = () => {
         {/* Filters Sidebar and Products Grid */}
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Sidebar - Filters */}
-          <div className="lg:w-72 flex-shrink-0">
-            <div className="glass-effect p-6 rounded-2xl sticky top-32 animate-slide-up">
-              <div className="flex items-center gap-2 mb-6">
-                <Filter className="h-5 w-5 text-primary" />
-                <h2 className="text-2xl font-serif font-bold">Filters</h2>
+          <div className="lg:w-80 flex-shrink-0">
+            <div className="glass-effect p-6 rounded-2xl sticky top-32 animate-slide-up max-h-[calc(100vh-10rem)] overflow-y-auto">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <Filter className="h-5 w-5 text-primary" />
+                  <h2 className="text-2xl font-serif font-bold">Filters</h2>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={clearAllFilters}
+                  className="text-sm text-muted-foreground hover:text-primary"
+                >
+                  Clear All
+                </Button>
               </div>
               
               <div className="space-y-6">
@@ -148,63 +232,120 @@ const Shop = () => {
 
                 <div className="divider-ethnic"></div>
 
+                {/* Fabric Filter */}
                 <div>
-                  <label className="text-sm font-semibold text-foreground mb-2 block">Fabric Type</label>
-                  <Select value={selectedFabric} onValueChange={setSelectedFabric}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select fabric" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Fabrics</SelectItem>
-                      <SelectItem value="silk">Pure Silk</SelectItem>
-                      <SelectItem value="cotton">Cotton</SelectItem>
-                      <SelectItem value="designer">Designer</SelectItem>
-                      <SelectItem value="banarasi">Banarasi</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <label className="text-sm font-semibold text-foreground mb-3 block">Fabric Type</label>
+                  <div className="space-y-2">
+                    {['silk', 'cotton', 'designer', 'banarasi', 'georgette', 'chiffon', 'organza', 'velvet', 'tussar', 'satin', 'net'].map((fabric) => (
+                      <div key={fabric} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`fabric-${fabric}`}
+                          checked={selectedFabrics.includes(fabric)}
+                          onCheckedChange={() => toggleFilter('fabric', fabric)}
+                        />
+                        <Label htmlFor={`fabric-${fabric}`} className="text-sm capitalize cursor-pointer">
+                          {fabric}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="divider-ethnic"></div>
 
+                {/* Color Filter */}
                 <div>
-                  <label className="text-sm font-semibold text-foreground mb-2 block">Occasion</label>
-                  <Select value={selectedOccasion} onValueChange={setSelectedOccasion}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select occasion" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Occasions</SelectItem>
-                      <SelectItem value="bridal">Bridal</SelectItem>
-                      <SelectItem value="wedding">Wedding</SelectItem>
-                      <SelectItem value="party">Party</SelectItem>
-                      <SelectItem value="festive">Festive</SelectItem>
-                      <SelectItem value="office">Office</SelectItem>
-                      <SelectItem value="casual">Casual</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <label className="text-sm font-semibold text-foreground mb-3 block">Colors</label>
+                  <div className="space-y-2">
+                    {['red', 'pink', 'blue', 'green', 'yellow', 'orange', 'purple', 'black', 'white', 'grey'].map((color) => (
+                      <div key={color} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`color-${color}`}
+                          checked={selectedColors.includes(color)}
+                          onCheckedChange={() => toggleFilter('color', color)}
+                        />
+                        <Label htmlFor={`color-${color}`} className="text-sm capitalize cursor-pointer flex items-center gap-2">
+                          <span className={`w-4 h-4 rounded-full border-2 border-border`} 
+                                style={{backgroundColor: color === 'grey' ? '#808080' : color}}></span>
+                          {color}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="divider-ethnic"></div>
 
+                {/* Occasion Filter */}
                 <div>
-                  <label className="text-sm font-semibold text-foreground mb-2 block">Price Range</label>
-                  <Select value={selectedPrice} onValueChange={setSelectedPrice}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select price" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Prices</SelectItem>
-                      <SelectItem value="under5k">Under ₹5,000</SelectItem>
-                      <SelectItem value="5k-10k">₹5,000 - ₹10,000</SelectItem>
-                      <SelectItem value="10k-15k">₹10,000 - ₹15,000</SelectItem>
-                      <SelectItem value="above15k">Above ₹15,000</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <label className="text-sm font-semibold text-foreground mb-3 block">Occasion</label>
+                  <div className="space-y-2">
+                    {['bridal', 'wedding', 'party', 'festive', 'office', 'casual'].map((occasion) => (
+                      <div key={occasion} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`occasion-${occasion}`}
+                          checked={selectedOccasions.includes(occasion)}
+                          onCheckedChange={() => toggleFilter('occasion', occasion)}
+                        />
+                        <Label htmlFor={`occasion-${occasion}`} className="text-sm capitalize cursor-pointer">
+                          {occasion}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="pt-4">
+                <div className="divider-ethnic"></div>
+
+                {/* Style Filter */}
+                <div>
+                  <label className="text-sm font-semibold text-foreground mb-3 block">Style</label>
+                  <div className="space-y-2">
+                    {['traditional', 'modern'].map((style) => (
+                      <div key={style} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`style-${style}`}
+                          checked={selectedStyles.includes(style)}
+                          onCheckedChange={() => toggleFilter('style', style)}
+                        />
+                        <Label htmlFor={`style-${style}`} className="text-sm capitalize cursor-pointer">
+                          {style}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="divider-ethnic"></div>
+
+                {/* Price Filter */}
+                <div>
+                  <label className="text-sm font-semibold text-foreground mb-3 block">Price Range</label>
+                  <div className="space-y-2">
+                    {[
+                      { value: 'under5k', label: 'Under ₹5,000' },
+                      { value: '5k-10k', label: '₹5,000 - ₹10,000' },
+                      { value: '10k-15k', label: '₹10,000 - ₹15,000' },
+                      { value: '15k-20k', label: '₹15,000 - ₹20,000' },
+                      { value: 'above20k', label: 'Above ₹20,000' }
+                    ].map((price) => (
+                      <div key={price.value} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`price-${price.value}`}
+                          checked={selectedPrices.includes(price.value)}
+                          onCheckedChange={() => toggleFilter('price', price.value)}
+                        />
+                        <Label htmlFor={`price-${price.value}`} className="text-sm cursor-pointer">
+                          {price.label}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-border">
                   <p className="text-sm text-muted-foreground">
-                    Showing {filteredProducts.length} of {products.length} sarees
+                    Showing <span className="font-semibold text-primary">{filteredProducts.length}</span> of <span className="font-semibold">{products.length}</span> sarees
                   </p>
                 </div>
               </div>
