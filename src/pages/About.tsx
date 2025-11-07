@@ -1,8 +1,12 @@
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatBot from "@/components/ChatBot";
 import storeInterior from "@/assets/store-interior.jpg";
+import shopDisplay from "@/assets/shop-display-1.jpg";
+import shopConsultation from "@/assets/shop-consultation.jpg";
+import shopArtisan from "@/assets/shop-artisan.jpg";
+import shopFittingRoom from "@/assets/shop-fitting-room.jpg";
 
 const About = () => {
   return (
@@ -37,40 +41,23 @@ const About = () => {
           </div>
         </div>
 
-        {/* Store Section */}
+        {/* How We Work Section */}
         <div className="mb-20">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold mb-4">
-              Visit Our <span className="text-primary">Flagship Store</span>
+              How We <span className="text-primary">Work</span>
             </h2>
             <div className="divider-ethnic"></div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in">
-              <img
-                src={storeInterior}
-                alt="SareeVastra Store Interior"
-                className="w-full h-[500px] object-cover rounded-2xl shadow-elegant hover-lift"
-              />
-            </div>
-
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
             <div className="space-y-6 animate-slide-up">
-              <h3 className="text-3xl font-serif font-bold">SareeVastra Surat</h3>
+              <h3 className="text-3xl font-serif font-bold">The SareeVastra Experience</h3>
               <p className="text-foreground/80 leading-relaxed">
-                Experience the magic of saree shopping in person at our flagship boutique in Surat. Our elegant showroom features an extensive collection spanning traditional to contemporary designs, all displayed in a luxurious ambiance designed for your comfort.
+                At SareeVastra, we believe that buying a saree is more than just a purchase — it's an experience, a celebration of heritage, and a connection to centuries of tradition. Our process is designed to ensure that every customer finds the perfect saree that resonates with their style and occasion.
               </p>
-
-              <div className="space-y-4 pt-4">
-                <div className="flex items-start space-x-4">
-                  <MapPin className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold">Location</p>
-                    <p className="text-muted-foreground">
-                      Ring Road, Surat, Gujarat 395002, India
-                    </p>
-                  </div>
-                </div>
+              
+              <div className="space-y-4">
                 <div className="flex items-start space-x-4">
                   <Clock className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
                   <div>
@@ -81,37 +68,101 @@ const About = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <Phone className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold">Phone</p>
-                    <p className="text-muted-foreground">+91 98765 43210</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <Mail className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold">Email</p>
-                    <p className="text-muted-foreground">store@sareevastra.com</p>
-                  </div>
-                </div>
+              </div>
+
+              <div className="bg-card p-6 rounded-xl border border-border shadow-soft">
+                <h4 className="text-xl font-serif font-bold mb-3 text-primary">Personal Consultation</h4>
+                <p className="text-muted-foreground leading-relaxed">
+                  Our expert stylists take the time to understand your needs, preferences, and the occasion. Whether you're looking for a bridal saree, party wear, or everyday elegance, we guide you through our curated collection with personalized recommendations.
+                </p>
+              </div>
+            </div>
+
+            <div className="animate-fade-in">
+              <img
+                src={shopConsultation}
+                alt="Personal styling consultation"
+                className="w-full h-[500px] object-cover rounded-2xl shadow-elegant hover-lift"
+              />
+            </div>
+          </div>
+
+          {/* Shop Images Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div className="animate-fade-in">
+              <img
+                src={storeInterior}
+                alt="SareeVastra Store Interior"
+                className="w-full h-[400px] object-cover rounded-2xl shadow-elegant hover-lift"
+              />
+              <p className="text-center mt-3 text-muted-foreground">Elegant showroom ambiance</p>
+            </div>
+            <div className="animate-fade-in">
+              <img
+                src={shopDisplay}
+                alt="Luxury saree display"
+                className="w-full h-[400px] object-cover rounded-2xl shadow-elegant hover-lift"
+              />
+              <p className="text-center mt-3 text-muted-foreground">Curated collection display</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-12">
+            <div className="animate-fade-in order-2 md:order-1">
+              <img
+                src={shopArtisan}
+                alt="Artisan weaving saree"
+                className="w-full h-[500px] object-cover rounded-2xl shadow-elegant hover-lift"
+              />
+            </div>
+
+            <div className="space-y-6 animate-slide-up order-1 md:order-2">
+              <h3 className="text-3xl font-serif font-bold">Direct from Artisans</h3>
+              <p className="text-foreground/80 leading-relaxed">
+                We work directly with master weavers across India, from the silk looms of Banaras to the cotton weavers of Chanderi. This direct partnership ensures authenticity, fair compensation for artisans, and the finest quality sarees for our customers.
+              </p>
+              <div className="bg-card p-6 rounded-xl border border-border shadow-soft">
+                <h4 className="text-xl font-serif font-bold mb-3 text-primary">Quality Assurance</h4>
+                <p className="text-muted-foreground leading-relaxed">
+                  Every saree undergoes meticulous quality checks at multiple stages. From verifying the purity of silk threads to examining the intricacy of handwoven patterns, we ensure only flawless pieces reach our collection.
+                </p>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Map Section */}
-        <div className="mb-20 animate-fade-in">
-          <div className="h-[450px] rounded-2xl overflow-hidden shadow-elegant border border-border">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.6332!2d72.8311!3d21.1702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDEwJzEyLjciTiA3MsKwNDknNTIuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6 animate-slide-up">
+              <h3 className="text-3xl font-serif font-bold">Try Before You Buy</h3>
+              <p className="text-foreground/80 leading-relaxed">
+                Our luxurious fitting rooms are designed to help you visualize how each saree drapes and flows. With full-length mirrors and perfect lighting, you can see yourself in your chosen saree and make the right decision with confidence.
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-start">
+                  <span className="text-secondary mr-2">✦</span>
+                  <span className="text-foreground/80">Expert draping assistance available</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-secondary mr-2">✦</span>
+                  <span className="text-foreground/80">Compare multiple sarees side by side</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-secondary mr-2">✦</span>
+                  <span className="text-foreground/80">Blouse piece matching and customization</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-secondary mr-2">✦</span>
+                  <span className="text-foreground/80">Complimentary refreshments while you shop</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="animate-fade-in">
+              <img
+                src={shopFittingRoom}
+                alt="Luxury fitting room"
+                className="w-full h-[500px] object-cover rounded-2xl shadow-elegant hover-lift"
+              />
+            </div>
           </div>
         </div>
 

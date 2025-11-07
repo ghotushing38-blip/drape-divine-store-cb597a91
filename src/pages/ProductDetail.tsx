@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { Heart, ShoppingCart, Share2, Star, Truck, RefreshCcw, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,9 +13,29 @@ import sareedesigner from "@/assets/saree-designer-1.jpg";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const location = useLocation();
+  const productFromState = location.state?.product;
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const product = {
+  // Use the product passed from Shop page, or fall back to default
+  const product = productFromState ? {
+    id: productFromState.id,
+    name: productFromState.name,
+    price: productFromState.price,
+    originalPrice: Math.floor(productFromState.price * 1.44), // Calculate ~31% off
+    fabric: productFromState.fabric.charAt(0).toUpperCase() + productFromState.fabric.slice(1),
+    color: productFromState.color.charAt(0).toUpperCase() + productFromState.color.slice(1),
+    description:
+      "Exquisite handwoven saree with intricate craftsmanship. Perfect for special occasions. This timeless piece combines traditional artistry with contemporary elegance, handcrafted by master artisans.",
+    images: [productFromState.image, productFromState.image, productFromState.image],
+    features: [
+      "6.5 meters of premium fabric",
+      "Traditional craftsmanship",
+      "Comes with matching blouse piece",
+      "Dry clean recommended",
+      "Handcrafted by master artisans",
+    ],
+  } : {
     id: 1,
     name: "Royal Maroon Silk Saree",
     price: 8999,

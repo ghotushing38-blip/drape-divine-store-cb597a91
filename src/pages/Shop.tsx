@@ -362,7 +362,7 @@ const Shop = () => {
                   style={{ animationDelay: `${idx * 50}ms` }}
                 >
                   <div className="relative h-[500px] overflow-hidden">
-                    <Link to={`/product/${product.id}`}>
+                    <Link to={`/product/${product.id}`} state={{ product }}>
                       <img
                         src={product.image}
                         alt={product.name}
@@ -390,7 +390,7 @@ const Shop = () => {
                     </div>
                   </div>
                   <div className="p-6 bg-gradient-to-b from-card to-muted/20">
-                    <Link to={`/product/${product.id}`}>
+                    <Link to={`/product/${product.id}`} state={{ product }}>
                       <h3 className="text-xl font-serif font-semibold mb-3 hover:text-primary transition-colors leading-tight">
                         {product.name}
                       </h3>
@@ -403,7 +403,7 @@ const Shop = () => {
                         {product.occasion}
                       </span>
                     </div>
-                    <Link to={`/product/${product.id}`}>
+                    <Link to={`/product/${product.id}`} state={{ product }}>
                       <Button className="w-full bg-gradient-to-r from-primary via-primary-glow to-primary text-primary-foreground hover:shadow-rosegold transition-all">
                         View Details
                       </Button>
